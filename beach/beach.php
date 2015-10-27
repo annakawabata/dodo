@@ -18,7 +18,11 @@ $anna = mysqli_query($db, $sq) or die(mysqli_error($db));
 //２つのテーブルをつなげる時に使うSELECT文
 $sql = 'SELECT p.id,p.title,p.body,c.category_name,p.modified  FROM posts p INNER JOIN categories c ON p.category_id = c.id WHERE p.type_id = 2';
 $ichiran = mysqli_query($db, $sql) or die(mysqli_error($db));
+ル
 
+//typesテーブルのデータを取ってくる
+$ss = sprintf('SELECT * FROM `types` WHERE id=2');
+$ssp = mysqli_query($db, $ss) or die(mysqli_error($db));
 ?>
 
 <!DOCTYPE html>
@@ -98,8 +102,10 @@ $ichiran = mysqli_query($db, $sql) or die(mysqli_error($db));
     </header>
 
  <div>
-    <h1>一覧</h1>
-    <h5><a href="index.php">投稿</a></h5>
+    <?php while ($sspp = mysqli_fetch_array($ssp)):?>
+    <h1><?php echo $sspp['name']; ?>一覧</h1>
+    <?php endwhile;?>
+    <h3><a href="index.php">投稿</a></h3>
     <!--　一覧表示させる方法　-->
     <?php while ($row = mysqli_fetch_array($ichiran)):?>
     <p>

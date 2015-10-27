@@ -5,33 +5,19 @@ require('dbconnect.php');
 function h($f){
     return htmlspecialchars($f,ENT_QUOTES,'UTF-8');
 }
-//投稿をデータベースに保存させるためのSQL
-        if(isset($_POST['title'])){
-        $type_id = 2;
-        $category_id = $_POST['category_id'];
-        $user_id = '';
-        $title = $_POST['title'];
-        $body = $_POST['body'];
 
-        $sql = 'INSERT INTO posts(type_id,category_id,user_id,title,body,created,modified)VALUES("'.$type_id.'","'.$category_id.'","'.$user_id.'","'.$title.'","'.$body.'", NOW(), NOW())';
-        mysqli_query($db, $sql) or die(mysqli_error($db));//絶対セットでついてくる
-
-        header("Location: beach.php");
-        }
-
-
-//一覧表示させるためのSQL
-$sqls = sprintf('SELECT * from categories where type_id = 2');
+//postsのデータを全部とってきている
+$sqls = sprintf('SELECT * from posts where category_id=%d',
+mysqli_real_escape_string($db,$_GET['id']));
 $result = mysqli_query($db, $sqls) or die(mysqli_error($db));
+// $table = mysqli_fetch_array($result);
+// var_dump($table['title']);
+// exit;
 
-//カテゴリー一覧のためのSQL
-$sq = sprintf('SELECT * from categories where type_id = 2');
+//categoriesのデータを全部とってきている
+$sq = sprintf('SELECT * from categories where id=%d',
+mysqli_real_escape_string($db,$_GET['id']));
 $anna = mysqli_query($db, $sq) or die(mysqli_error($db));
-//内部結合
-//２つのテーブルをつなげる時に使うSELECT文
-$sql = 'SELECT p.id,p.title,p.body,c.category_name,p.modified  FROM posts p INNER JOIN categories c ON p.category_id = c.id WHERE p.type_id = 2';
-$ichiran = mysqli_query($db, $sql) or die(mysqli_error($db));
-
 ?>
 
 <!DOCTYPE html>
@@ -57,6 +43,7 @@ $ichiran = mysqli_query($db, $sql) or die(mysqli_error($db));
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+
 
 </head>
 
@@ -111,28 +98,29 @@ $ichiran = mysqli_query($db, $sql) or die(mysqli_error($db));
     </header>
     
  <form method="post" action="">
+ <div>
+    <?php while($an = mysqli_fetch_array($anna)): ?>
+    <h1><?php echo $an['category_name'];?>一覧</h1>
+    <?php endwhile;?>
+    
+    <!--　一覧表示させる方法　-->
+    <?php while($row = mysqli_fetch_array($result)): ?>
+    <p>
+    タイトル：<?php print $row['title']; ?><br>
+    内容：<?php print $row['body']; ?><br>
+<!--カテゴリー：<?php print $row['category_name']; ?><br>
+ -->更新日時：<?php print $row['modified']; ?><br>
+    <hr><!--線をいれる-->
+    </p>
+    <?php endwhile;?>
 
- <h1>投稿</h1>
- <p>
- タイトル<input type="text" name="title" />
- <br>
+ </div>
 
- <select name="category_id" value="">
-            <?php while ($datas = mysqli_fetch_array($result)):?>
-            <!--バリューの中にデータを入れてあげる-->
-            <option value="<?php $datas['id'];?>"><?php echo $datas['category_name'];?></option>
-            <?php endwhile;?>
-</select><br />
-
- <br>
- 投稿<textarea name="body" rows="5" cols="50"></textarea>
- <br>
- <input type="submit" value="送信" />　
- <input type="reset" value="取り消し" />
+ <input type="button" value="戻る" onclick="history.back()">
  </p>
  </form>
 
-       <!-- Footer -->
+      <!-- Footer -->
     <footer style="background-color:#0ab7f0;color:#f9eb0a;">
         <div class="container text-center">
             <p>Copyright &copy; geechs 6th 2015</p>

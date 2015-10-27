@@ -6,22 +6,11 @@ function h($f){
     return htmlspecialchars($f,ENT_QUOTES,'UTF-8');
 }
 
-//一覧表示させるためのSQL
-$sqls = sprintf('SELECT * from categories where type_id = 4');
+//一件表示させるためのSQL
+$sqls = sprintf('SELECT * from posts WHERE id=%d',
+    mysqli_real_escape_string($db,$_GET['id']));
 $result = mysqli_query($db, $sqls) or die(mysqli_error($db));
-
-//カテゴリー一覧のためのSQL
-$sq = sprintf('SELECT * from categories where type_id = 4');
-$anna = mysqli_query($db, $sq) or die(mysqli_error($db));
-
-//内部結合
-//２つのテーブルをつなげる時に使うSELECT文
-$sql = 'SELECT p.id,p.title,p.body,c.category_name,p.modified  FROM posts p INNER JOIN categories c ON p.category_id = c.id WHERE p.type_id = 4';
-$ichiran = mysqli_query($db, $sql) or die(mysqli_error($db));
-
-//typesテーブルのデータを取ってくる
-$ss = sprintf('SELECT * FROM `types` WHERE id=4');
-$ssp = mysqli_query($db, $ss) or die(mysqli_error($db));
+$row = mysqli_fetch_array($result);
 ?>
 
 <!DOCTYPE html>
@@ -99,33 +88,17 @@ $ssp = mysqli_query($db, $ss) or die(mysqli_error($db));
             </div>
         </div>
     </header>
-
- <div>
-    <?php while ($sspp = mysqli_fetch_array($ssp)):?>
-    <h1><?php echo $sspp['name']; ?>一覧</h1>
-    <?php endwhile;?>
-    <h3><a href="index.php">投稿</a></h3>
     
-    <!--　一覧表示させる方法　-->
-    <?php while ($row = mysqli_fetch_array($ichiran)):?>
-    <p>
-    タイトル：<a href="view.php?id=<?php echo $row['id'];?>"><?php print $row['title']; ?></a><br>
-    内容：<?php print $row['body']; ?><br>
-    カテゴリー：<?php print $row['category_name']; ?><br>
-    更新日時：<?php print $row['modified']; ?><br>
-    <hr><!--線をいれる-->
-    </p>
-    <?php endwhile;?>
+<div>
+    <h1><?php print $row['title']; ?></h1>
+    <p><?php print $row['modified']; ?></p>
+    <h3><?php print $row['body']; ?></h3>
+    <form method="post" action="update.php?id=<?php echo $row['id'];?>">
+        <input type="submit" value="[編集・削除]" >
+        <input type="button" value="戻る" onclick="history.back()">
+    </form>
 
- </div>
-
- <div>
-    <h1>カテゴリー</h1>
-    <!--　カテゴリ一覧表示させる方法　-->
-    <?php while ($an = mysqli_fetch_array($anna)):?>
-    <?php echo $an['category_name']; ?><br>
-    <?php endwhile;?>
- </div>
+</div>
 
       <!-- Footer -->
     <footer style="background-color:#0ab7f0;color:#f9eb0a;">

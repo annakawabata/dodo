@@ -16,7 +16,7 @@ function h($f){
         $sql = 'INSERT INTO posts(type_id,category_id,user_id,title,body,created,modified)VALUES("'.$type_id.'","'.$category_id.'","'.$user_id.'","'.$title.'","'.$body.'", NOW(), NOW())';
         mysqli_query($db, $sql) or die(mysqli_error($db));//絶対セットでついてくる
 
-        header("Location: beach.php");
+        header("Location: activity.php");
         }
 
 
@@ -120,12 +120,13 @@ $ichiran = mysqli_query($db, $sql) or die(mysqli_error($db));
  <select name="category_id" value="">
             <?php while ($datas = mysqli_fetch_array($result)):?>
             <!--バリューの中にデータを入れてあげる-->
-            <option value="<?php $datas['id'];?>"><?php echo $datas['category_name'];?></option>
+            <option value="<?php echo $datas['id'];?>"><?php echo $datas['category_name'];?></option>
             <?php endwhile;?>
 </select><br />
 
  <br>
- 投稿<textarea name="body" rows="5" cols="50"></textarea>
+ 投稿<br>
+ <textarea name="body" class="form-control" rows="3"rows="5" cols="50"></textarea>
  <br>
  <input type="submit" value="送信" />　
  <input type="reset" value="取り消し" />

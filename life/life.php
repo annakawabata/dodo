@@ -7,20 +7,20 @@ function h($f){
 }
 
 //一覧表示させるためのSQL
-$sqls = sprintf('SELECT * from categories where type_id = 4');
+$sqls = sprintf('SELECT * from categories where type_id = 1');
 $result = mysqli_query($db, $sqls) or die(mysqli_error($db));
 
 //カテゴリー一覧のためのSQL
-$sq = sprintf('SELECT * from categories where type_id = 4');
+$sq = sprintf('SELECT * from categories where type_id = 1');
 $anna = mysqli_query($db, $sq) or die(mysqli_error($db));
 
 //内部結合
 //２つのテーブルをつなげる時に使うSELECT文
-$sql = 'SELECT p.id,p.title,p.body,c.category_name,p.modified  FROM posts p INNER JOIN categories c ON p.category_id = c.id WHERE p.type_id = 4';
+$sql = 'SELECT p.id,p.title,p.body,c.category_name,p.modified  FROM posts p INNER JOIN categories c ON p.category_id = c.id WHERE p.type_id = 1';
 $ichiran = mysqli_query($db, $sql) or die(mysqli_error($db));
 
 //typesテーブルのデータを取ってくる
-$ss = sprintf('SELECT * FROM `types` WHERE id=4');
+$ss = sprintf('SELECT * FROM `types` WHERE id=1');
 $ssp = mysqli_query($db, $ss) or die(mysqli_error($db));
 ?>
 
@@ -104,8 +104,8 @@ $ssp = mysqli_query($db, $ss) or die(mysqli_error($db));
     <?php while ($sspp = mysqli_fetch_array($ssp)):?>
     <h1><?php echo $sspp['name']; ?>一覧</h1>
     <?php endwhile;?>
+    <h1>一覧</h1>
     <h3><a href="index.php">投稿</a></h3>
-    
     <!--　一覧表示させる方法　-->
     <?php while ($row = mysqli_fetch_array($ichiran)):?>
     <p>

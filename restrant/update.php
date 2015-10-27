@@ -18,7 +18,7 @@ $row = mysqli_fetch_array($result);
 
 
 if(isset($_GET['id'])){
-    $sqls = sprintf('SELECT * from categories where type_id = 2');
+    $sqls = sprintf('SELECT * from categories where type_id = 3');
     $result = mysqli_query($db, $sqls) or die(mysqli_error($db));
     $table = mysqli_fetch_array($result);
 }

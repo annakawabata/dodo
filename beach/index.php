@@ -117,10 +117,10 @@ $ichiran = mysqli_query($db, $sql) or die(mysqli_error($db));
  タイトル<input type="text" name="title" />
  <br>
 
- <select name="category_id" value="">
+ <select name="category_id">
             <?php while ($datas = mysqli_fetch_array($result)):?>
             <!--バリューの中にデータを入れてあげる-->
-            <option value="<?php $datas['id'];?>"><?php echo $datas['category_name'];?></option>
+            <option value="<?php echo $datas['id'];?>"><?php echo $datas['category_name'];?></option>
             <?php endwhile;?>
 </select><br />
 
