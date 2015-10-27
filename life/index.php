@@ -120,7 +120,7 @@ $ichiran = mysqli_query($db, $sql) or die(mysqli_error($db));
             <option value="<?php echo $datas['id'];?>"><?php echo $datas['category_name'];?></div></option>
             <?php endwhile;?>
             
- </select></p>
+ </select>
  <p>
  <input type="text" name="title" size="50" placeholder="タイトルを記入してください"/>
  </p>

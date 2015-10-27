@@ -110,27 +110,29 @@ $ichiran = mysqli_query($db, $sql) or die(mysqli_error($db));
         </div>
     </header>
     
- <form method="post" action="">
+ <form method="post" action="" class="anna">
+ <div class="container text-center">
 
  <h1>投稿</h1>
- <p>
- タイトル<input type="text" name="title" />
- <br>
-
+ <center>
  <select name="category_id" value="">
             <?php while ($datas = mysqli_fetch_array($result)):?>
             <!--バリューの中にデータを入れてあげる-->
-            <option value="<?php echo $datas['id'];?>"><?php echo $datas['category_name'];?></option>
+            <option value="<?php echo $datas['id'];?>"><?php echo $datas['category_name'];?></div></option>
             <?php endwhile;?>
-</select><br />
-
- <br>
- 投稿<textarea name="body" rows="5" cols="50"></textarea>
- <br>
- <input type="submit" value="送信" />　
- <input type="reset" value="取り消し" />
- </p>
+</select>
+ <p>
+ <input type="text" name="title" size="50" placeholder="タイトルを記入してください"/>
+</p>
+<textarea name="body" rows="6" cols="70" placeholder="記事を記入してください"></textarea>
+ <div class="center">
+ <p><input type="submit" class="btn btn-default" value="送信" />　
+ <input type="reset" class="btn btn-default" value="取り消し" /></p>
+</div>
+</div>
+ </center>
  </form>
+</div>
 
        <!-- Footer -->
     <footer style="background-color:#0ab7f0;color:#f9eb0a;">
