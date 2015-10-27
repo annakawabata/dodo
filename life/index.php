@@ -114,7 +114,6 @@ $ichiran = mysqli_query($db, $sql) or die(mysqli_error($db));
 
  <h1>投稿</h1>
 <center>
- <div class="col-md-8 col-md-offset-2" >
      <select name="category_id" value="">
             <?php while ($datas = mysqli_fetch_array($result)):?>
             <!--バリューの中にデータを入れてあげる-->
@@ -122,9 +121,9 @@ $ichiran = mysqli_query($db, $sql) or die(mysqli_error($db));
             <?php endwhile;?>
             
  </select></p>
- <p><div class="col-md-8 col-md-offset-2" >
- <input type="text" name="title" class="col-md-" placeholder="タイトルを記入してください"/>
- </p></div>
+ <p>
+ <input type="text" name="title" size="50" placeholder="タイトルを記入してください"/>
+ </p>
  <textarea name="body" rows="6" cols="70" placeholder="記事を記入してください"></textarea>
  <div class="center">
  <p><input type="submit" class="btn btn-default" value="送信" />　
