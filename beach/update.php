@@ -136,28 +136,31 @@ $sql = 'SELECT * FROM posts WHERE del_flg=0';
         </div>
     </header>
     
- <form method="post" action="">
-
+ <form method="post" action="" class="anna">
+ <div class="container text-center">
  <h1>編集</h1>
- <p>
- タイトル<input type="text" name="title" value="<?php print $row['title']; ?>" />
- <br>
-
+ <center>
  <select name="category_id" value="">
             <?php while ($datas = mysqli_fetch_array($result)):?>
             <!--バリューの中にデータを入れてあげる-->
-            <option value="<?php $datas['id'];?>"><?php echo $datas['category_name'];?></option>
+            <option value="<?php $datas['id'];?>"><?php echo $datas['category_name'];?></div></option>
             <?php endwhile;?>
-</select><br />
-
- <br><!--テキストエリアを使う時は文字としていれる（valueは使用しない）-->
- 投稿<textarea name="body" cols="50" rows="5"><?php print $row['body']; ?></textarea>
- <br>
- <input type="submit" value="更新" />　
- <input type="button" value="削除" onclick="disp()"/>
- <input type="button" value="戻る" onclick="history.back()">
+</select>
+<p>
+<input type="text" name="title" size="50" value="<?php print $row['title']; ?>" />
+</p>
+<!--テキストエリアを使う時は文字としていれる（valueは使用しない）-->
+ <textarea name="body" cols="70" rows="6"><?php print $row['body']; ?></textarea>
+ <p>
+ <input type="submit" class="btn btn-danger" value="更新" />　
+ <input type="button" class="btn btn-danger" value="削除" onclick="disp()"/>
+ <input type="button" class="btn btn-default" value="戻る" onclick="history.back()">
  </p>
+</div>
+</div>
+</center>
  </form>
+</div>
 
       <!-- Footer -->
     <footer style="background-color:#0ab7f0;color:#f9eb0a;">
