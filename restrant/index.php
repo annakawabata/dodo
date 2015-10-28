@@ -10,10 +10,11 @@ function h($f){
         $type_id = 3;
         $category_id = $_POST['category_id'];
         $user_id = '';
+        $image = $_POST['image'];
         $title = $_POST['title'];
         $body = $_POST['body'];
 
-        $sql = 'INSERT INTO posts(type_id,category_id,user_id,title,body,created,modified)VALUES("'.$type_id.'","'.$category_id.'","'.$user_id.'","'.$title.'","'.$body.'", NOW(), NOW())';
+        $sql = 'INSERT INTO posts(type_id,category_id,user_id,image,title,body,created,modified)VALUES("'.$type_id.'","'.$category_id.'","'.$user_id.'","'.$image.'","'.$title.'","'.$body.'", NOW(), NOW())';
         mysqli_query($db, $sql) or die(mysqli_error($db));//絶対セットでついてくる
 
         header("Location: restrant.php");
@@ -25,12 +26,12 @@ $sqls = sprintf('SELECT * from categories where type_id = 3');
 $result = mysqli_query($db, $sqls) or die(mysqli_error($db));
 
 //カテゴリー一覧のためのSQL
-$sq = sprintf('SELECT * from categories where type_id = 3');
-$anna = mysqli_query($db, $sq) or die(mysqli_error($db));
+// $sq = sprintf('SELECT * from categories where type_id = 3');
+// $anna = mysqli_query($db, $sq) or die(mysqli_error($db));
 //内部結合
 //２つのテーブルをつなげる時に使うSELECT文
-$sql = 'SELECT p.id,p.title,p.body,c.category_name,p.modified  FROM posts p INNER JOIN categories c ON p.category_id = c.id WHERE p.type_id = 3';
-$ichiran = mysqli_query($db, $sql) or die(mysqli_error($db));
+// $sql = 'SELECT p.id,p.title,p.body,c.category_name,p.modified  FROM posts p INNER JOIN categories c ON p.category_id = c.id WHERE p.type_id = 3';
+// $ichiran = mysqli_query($db, $sql) or die(mysqli_error($db));
 
 ?>
 
@@ -121,6 +122,7 @@ $ichiran = mysqli_query($db, $sql) or die(mysqli_error($db));
             <option value="<?php echo $datas['id'];?>"><?php echo $datas['category_name'];?></div></option>
             <?php endwhile;?>
 </select>
+<div><br><input type="file" name="image" size="35" /><br></div>
  <p>
  <input type="text" name="title" size="50" placeholder="タイトルを記入してください"/>
 </p>

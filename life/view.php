@@ -88,17 +88,21 @@ $row = mysqli_fetch_array($result);
             </div>
         </div>
     </header>
-    
-<div>
-    <h1><?php print $row['title']; ?></h1>
-    <p><?php print $row['modified']; ?></p>
-    <h3><?php print $row['body']; ?></h3>
-    <form method="post" action="update.php?id=<?php echo $row['id'];?>">
-        <input type="submit" value="[編集・削除]" >
-        <input type="button" value="戻る" onclick="history.back()">
-    </form>
 
-</div>
+<center>
+    <p><div style="border-bottom:#6AA2DB 3px solid;width:500px ">
+    <div style="border-bottom:#98C5F3 3px solid;width:400px;padding:5px"><h3><?php print $row['title']; ?></h3></div></div></p>
+    
+    <p><?php print $row['modified']; ?></p>
+    <div style="border:1px dotted #98C5F3;padding:10px;border-radius:10px;">
+        <p><h3><?php print $row['body']; ?></h3></p>
+    </div>
+    <form method="post" action="update.php?id=<?php echo $row['id'];?>">
+        <p><input type="submit" class="btn btn-danger" value="[編集・削除]" >
+        <input type="button" class="btn btn-default"value="戻る" onclick="history.back()">
+        </p>
+    </form>
+</center>
 
       <!-- Footer -->
     <footer style="background-color:#0ab7f0;color:#f9eb0a;">

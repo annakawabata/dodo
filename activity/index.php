@@ -10,13 +10,15 @@ function h($f){
         $type_id = 4;
         $category_id = $_POST['category_id'];
         $user_id = '';
+        $image = $_POST['image'];
         $title = $_POST['title'];
         $body = $_POST['body'];
 
-        $sql = 'INSERT INTO posts(type_id,category_id,user_id,title,body,created,modified)VALUES("'.$type_id.'","'.$category_id.'","'.$user_id.'","'.$title.'","'.$body.'", NOW(), NOW())';
-        mysqli_query($db, $sql) or die(mysqli_error($db));//絶対セットでついてくる
 
-        header("Location: activity.php");
+        $sql = 'INSERT INTO posts(type_id,category_id,user_id,image,title,body,created,modified)VALUES("'.$type_id.'","'.$category_id.'","'.$user_id.'","'.$image.'","'.$title.'","'.$body.'", NOW(), NOW())';
+        mysqli_query($db, $sql) or die(mysqli_error($db));//絶対セットでついてくる
+        header('Location: activity.php');
+        exit();
         }
 
 
@@ -25,13 +27,21 @@ $sqls = sprintf('SELECT * from categories where type_id = 4');
 $result = mysqli_query($db, $sqls) or die(mysqli_error($db));
 
 //カテゴリー一覧のためのSQL
-$sq = sprintf('SELECT * from categories where type_id = 4');
-$anna = mysqli_query($db, $sq) or die(mysqli_error($db));
+// $sq = sprintf('SELECT * from categories where type_id = 4');
+// $anna = mysqli_query($db, $sq) or die(mysqli_error($db));
 //内部結合
 //２つのテーブルをつなげる時に使うSELECT文
-$sql = 'SELECT p.id,p.title,p.body,c.category_name,p.modified  FROM posts p INNER JOIN categories c ON p.category_id = c.id WHERE p.type_id = 4';
-$ichiran = mysqli_query($db, $sql) or die(mysqli_error($db));
+// $sql = 'SELECT p.id,p.image,p.title,p.body,c.category_name,p.modified  FROM posts p INNER JOIN categories c ON p.category_id = c.id WHERE p.type_id = 4';
+// $ichiran = mysqli_query($db, $sql) or die(mysqli_error($db));
 
+// if (empty($error)) {
+//     $ichiran = date('YmdHis') . $_FILES['image']['name'];
+//     move_uploaded_file($_FILES['image']['tmp_name'], 'images/' . $image);
+//     $_SESSION = $_POST;
+//     $_SESSION['image'] = $ichiran;
+//     //header('Location: ');
+//     exit();
+//     }
 ?>
 
 <!DOCTYPE html>
@@ -120,12 +130,16 @@ $ichiran = mysqli_query($db, $sql) or die(mysqli_error($db));
             <!--バリューの中にデータを入れてあげる-->
             <option value="<?php echo $datas['id'];?>"><?php echo $datas['category_name'];?></div></option>
             <?php endwhile;?>
+ 
  </select>
+ <div><br><input type="file" name="image" size="35" /><br></div>
  <p>
  <input type="text" name="title" size="50" placeholder="タイトルを記入してください"/>
  </p>
  <textarea name="body" rows="6" cols="70" placeholder="記事を記入してください"></textarea>
  <div class="center" >
+
+
  <p><input type="submit" class="btn btn-default" value="送信" />　
  <input type="reset" class="btn btn-default" value="取り消し" /></p>
   </div>
