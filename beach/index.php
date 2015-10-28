@@ -5,12 +5,17 @@ require('dbconnect.php');
 function h($f){
     return htmlspecialchars($f,ENT_QUOTES,'UTF-8');
 }
+
+    //画像を送る際に一度$_FILESに入れる必要がある
+    
+
 //投稿をデータベースに保存させるためのSQL
         if(isset($_POST['title'])){
+        $image = date('YmdHis') . $_FILES['image']['name'];
+        move_uploaded_file($_FILES['image']['tmp_name'], 'images/' . $image);
         $type_id = 2;
         $category_id = $_POST['category_id'];
         $user_id = '';
-        $image = $_POST['image'];
         $title = $_POST['title'];
         $body = $_POST['body'];
 
@@ -111,7 +116,7 @@ $result = mysqli_query($db, $sqls) or die(mysqli_error($db));
         </div>
     </header>
     
- <form method="post" action="" class="anna">
+ <form method="post" action="" class="anna" enctype="multipart/form-data">
  <div class="container text-center">
 
  <h1>投稿</h1>
@@ -122,18 +127,19 @@ $result = mysqli_query($db, $sqls) or die(mysqli_error($db));
             <option value="<?php echo $datas['id'];?>"><?php echo $datas['category_name'];?></div></option>
             <?php endwhile;?>
 </select>
+
 <div><br><input type="file" name="image" size="35" /><br></div>
 <p>
 <input type="text" name="title" size="50" placeholder="タイトルを記入してください"/>
 </p>
- <textarea name="body" rows="6" cols="70" placeholder="記事を記入してください"></textarea>
+<textarea name="body" rows="6" cols="70" placeholder="記事を記入してください"></textarea>
 <div class="center">
- <p><input type="submit" class="btn btn-default" value="送信" />　
- <input type="reset" class="btn btn-default" value="取り消し" /></p>
+<p><input type="submit" class="btn btn-default" value="送信" />　
+<input type="reset" class="btn btn-default" value="取り消し" /></p>
 </div>
 </div>
- </center>
- </form>
+</center>
+</form>
 </div>
 
        <!-- Footer -->
