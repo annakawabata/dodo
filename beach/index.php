@@ -12,8 +12,10 @@ function h($f){
 //投稿をデータベースに保存させるためのSQL
         if(isset($_POST['title'])){
         //画像を送る際に一度$_FILESに入れる必要がある
-        $image = date('YmdHis') . $_FILES['image']['category_name'];
-        move_uploaded_file($_FILES['image']['tmp_name'], 'images/' . $image);
+        $image = date('YmdHis').$_FILES['image']['name'];
+        move_uploaded_file($_FILES['image']['tmp_name'],'../images/'.$image);
+        
+
         $type_id = 2;
         $category_id = $_POST['category_id'];
         $user_id = '';
@@ -24,6 +26,7 @@ function h($f){
         mysqli_query($db, $sql) or die(mysqli_error($db));//絶対セットでついてくる
 
         header("Location: beach.php");
+        exit();
         }
 
 
@@ -130,6 +133,7 @@ $result = mysqli_query($db, $sqls) or die(mysqli_error($db));
 </select>
 
 <div><br><input type="file" name="image" size="35" /><br></div>
+
 <p>
 <input type="text" name="title" size="50" placeholder="タイトルを記入してください"/>
 </p>
