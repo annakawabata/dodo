@@ -107,10 +107,11 @@ $ssp = mysqli_query($db, $ss) or die(mysqli_error($db));
     <h3><a href="index.php">投稿</a></h3>
     <!--　一覧表示させる方法　-->
     <?php while ($row = mysqli_fetch_array($ichiran)):?>
+    <?php var_dump($row);?>
     <p>
     タイトル：<a href="view.php?id=<?php echo $row['id'];?>"><?php print $row['title']; ?></a><br>
 
-    写真：<img src="images/<?php echo h($row['image']); ?>"width="210" height="180" alt="<?php echo h($row['name']); ?>" />
+    写真：<img src="../images/<?php echo h($row['image']); ?>"width="210" height="180" alt="<?php echo h($row['category_name']); ?>" />
     <br>
     
     内容：<?php print $row['body']; ?><br>

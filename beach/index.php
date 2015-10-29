@@ -6,12 +6,13 @@ function h($f){
     return htmlspecialchars($f,ENT_QUOTES,'UTF-8');
 }
 
-    //画像を送る際に一度$_FILESに入れる必要がある
+    
     
 
 //投稿をデータベースに保存させるためのSQL
         if(isset($_POST['title'])){
-        $image = date('YmdHis') . $_FILES['image']['name'];
+        //画像を送る際に一度$_FILESに入れる必要がある
+        $image = date('YmdHis') . $_FILES['image']['category_name'];
         move_uploaded_file($_FILES['image']['tmp_name'], 'images/' . $image);
         $type_id = 2;
         $category_id = $_POST['category_id'];
