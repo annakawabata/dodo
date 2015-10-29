@@ -107,7 +107,6 @@ $ssp = mysqli_query($db, $ss) or die(mysqli_error($db));
     <h3><a href="index.php">投稿</a></h3>
     <!--　一覧表示させる方法　-->
     <?php while ($row = mysqli_fetch_array($ichiran)):?>
-    <?php var_dump($row);?>
     <p>
     タイトル：<a href="view.php?id=<?php echo $row['id'];?>"><?php print $row['title']; ?></a><br>
 

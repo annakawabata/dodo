@@ -5,12 +5,16 @@ require('dbconnect.php');
 function h($f){
     return htmlspecialchars($f,ENT_QUOTES,'UTF-8');
 }
-//投稿をデータベースに保存させるためのSQL
         if(isset($_POST['title'])){
+        //画像を送る際に一度$_FILESに入れる必要がある
+        $image = date('YmdHis').$_FILES['image']['name'];
+        move_uploaded_file($_FILES['image']['tmp_name'],'../images/'.$image);
+
+//投稿をデータベースに保存させるためのSQL
+ 
         $type_id = 1;
         $category_id = $_POST['category_id'];
         $user_id = '';
-        $image = $_POST['image'];
         $title = $_POST['title'];
         $body = $_POST['body'];
 
@@ -18,6 +22,7 @@ function h($f){
         mysqli_query($db, $sql) or die(mysqli_error($db));//絶対セットでついてくる
 
         header("Location: life.php");
+        exit;
         }
 
 
@@ -110,7 +115,7 @@ $result = mysqli_query($db, $sqls) or die(mysqli_error($db));
             </div>
         </div>
     </header>
- <form method="post" action="" class="anna">
+ <form method="post" action="" class="anna" enctype="multipart/form-data">
      <div class="container text-center">
 
  <h1>投稿</h1>

@@ -5,11 +5,7 @@ require('dbconnect.php');
 function h($f){
     return htmlspecialchars($f,ENT_QUOTES,'UTF-8');
 }
-
-    
-    
-
-//投稿をデータベースに保存させるためのSQL
+        //投稿をデータベースに保存させるためのSQL
         if(isset($_POST['title'])){
         //画像を送る際に一度$_FILESに入れる必要がある
         $image = date('YmdHis').$_FILES['image']['name'];

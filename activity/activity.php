@@ -16,7 +16,7 @@ $anna = mysqli_query($db, $sq) or die(mysqli_error($db));
 
 //内部結合
 //２つのテーブルをつなげる時に使うSELECT文
-$sql = 'SELECT p.id,p.title,p.body,c.category_name,p.modified  FROM posts p INNER JOIN categories c ON p.category_id = c.id WHERE p.type_id = 4';
+$sql = 'SELECT p.id,p.title,p.image,p.body,c.category_name,p.modified  FROM posts p INNER JOIN categories c ON p.category_id = c.id WHERE p.type_id = 4';
 $ichiran = mysqli_query($db, $sql) or die(mysqli_error($db));
 
 //typesテーブルのデータを取ってくる
@@ -110,6 +110,8 @@ $ssp = mysqli_query($db, $ss) or die(mysqli_error($db));
     <?php while ($row = mysqli_fetch_array($ichiran)):?>
     <p>
     タイトル：<a href="view.php?id=<?php echo $row['id'];?>"><?php print $row['title']; ?></a><br>
+    写真：<img src="../images/<?php echo $row['image']; ?>"width="210" height="180" alt="<?php echo h($row['category_name']); ?>" />
+    <br>
     内容：<?php print $row['body']; ?><br>
     カテゴリー：<?php print $row['category_name']; ?><br>
     更新日時：<?php print $row['modified']; ?><br>
