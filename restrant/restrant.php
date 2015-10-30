@@ -104,7 +104,7 @@ $ssp = mysqli_query($db, $ss) or die(mysqli_error($db));
     <?php while ($sspp = mysqli_fetch_array($ssp)):?>
     <h1><?php echo $sspp['name']; ?>一覧</h1>
     <?php endwhile;?>
-    <h5><a href="index.php">投稿</a></h5>
+    <h2><a href="index.php">投稿</a></h2>
     <!--　一覧表示させる方法　-->
     <?php while ($row = mysqli_fetch_array($ichiran)):?>
     <p>

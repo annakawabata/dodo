@@ -41,8 +41,6 @@ $row = mysqli_fetch_array($result);
 
 <body　id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 
-    <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
-
     <!-- Navigation -->
     <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
         <div class="container">
@@ -71,32 +69,15 @@ $row = mysqli_fetch_array($result);
         </div>
         <!-- /.container -->
     </nav>
-
-    <!-- Intro Header -->
-    <header class="intro">
-        <div class="intro-body">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-8 col-md-offset-2">
-                        <h1 class="brand-heading">DoDo</h1>
-                        <p class="intro-text"></p>
-                        <a href="#about" class="btn btn-circle page-scroll">
-                            <i class="fa fa-angle-double-down animated"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-
+<section id="about" class="container content-section text-center">
+<img src="../images/<?php echo $row['image']; ?>"width="80%" alt="<?php echo h($row['category_name']); ?>" />
+</section>
 <center>
-    <p><div style="border-bottom:#6AA2DB 3px solid;width:500px ">
-    <div style="border-bottom:#98C5F3 3px solid;width:400px;padding:5px"><h3><?php print $row['title']; ?></h3></div></div></p>
+    
+    <br><h3><?php print $row['title']; ?></h3>
     
     <p><?php print $row['modified']; ?></p>
-    <div style="border:1px dotted #98C5F3;padding:10px;border-radius:10px;">
-        <p><h3><?php print $row['body']; ?></h3></p>
-    </div>
+    <p><h3><?php print $row['body']; ?></h3></p>
     <form method="post" action="update.php?id=<?php echo $row['id'];?>">
         <p><input type="submit" class="btn btn-danger" value="[編集・削除]" >
         <input type="button" class="btn btn-default"value="戻る" onclick="history.back()">

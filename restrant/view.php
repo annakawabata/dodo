@@ -71,34 +71,21 @@ $row = mysqli_fetch_array($result);
         </div>
         <!-- /.container -->
     </nav>
-
-    <!-- Intro Header -->
-    <header class="intro">
-        <div class="intro-body">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-8 col-md-offset-2">
-                        <h1 class="brand-heading">DoDo</h1>
-                        <p class="intro-text"></p>
-                        <a href="#about" class="btn btn-circle page-scroll">
-                            <i class="fa fa-angle-double-down animated"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
+<section id="about" class="container content-section text-center">
+<img src="../images/<?php echo $row['image']; ?>"width="80%" alt="<?php echo h($row['category_name']); ?>" />
+</section>
+<center>
     
-<div>
-    <h1><?php print $row['title']; ?></h1>
+    <br><h3><?php print $row['title']; ?></h3>
+    
     <p><?php print $row['modified']; ?></p>
-    <h3><?php print $row['body']; ?></h3>
+    <p><h3><?php print $row['body']; ?></h3></p>
     <form method="post" action="update.php?id=<?php echo $row['id'];?>">
-        <input type="submit" value="[編集・削除]" >
-        <input type="button" value="戻る" onclick="history.back()">
+        <p><input type="submit" class="btn btn-danger" value="[編集・削除]" >
+        <input type="button" class="btn btn-default"value="戻る" onclick="history.back()">
+        </p>
     </form>
-
-</div>
+</center>
 
       <!-- Footer -->
     <footer style="background-color:#0ab7f0;color:#f9eb0a;">
