@@ -10,6 +10,12 @@ function makeLink($v){
     return preg_replace('/(https?|ftp)(:\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)/', '<A href="\\1\\2">\\1\\2</A>', $v);
 }
 
+if(isset($_POST['title'])){
+        //画像を送る際に一度$_FILESに入れる必要がある
+        $image = date('YmdHis').$_FILES['image']['name'];
+        move_uploaded_file($_FILES['image']['tmp_name'],'../images/'.$image);
+}
+
 //一件表示させるためのSQL
 $sqls = sprintf('SELECT * from posts WHERE id=%d',
     mysqli_real_escape_string($db,$_GET['id']));
@@ -27,15 +33,16 @@ if(isset($_GET['id'])){
 if(!empty($_POST)){
     //print_r($_POST);exit;
     if($_GET['id'] > 0){//POSTのidが空でないかどうかを確認する
-        $sql = sprintf('UPDATE posts SET title="%s",body="%s",modified=NOW() WHERE id=%d',
+        $sql = sprintf('UPDATE posts SET title="%s",body="%s",image="%s",modified=NOW() WHERE id=%d',
             mysqli_real_escape_string($db,$_POST['title']),
             mysqli_real_escape_string($db,$_POST['body']),
+            mysqli_real_escape_string($db,$_POST['image']),
             mysqli_real_escape_string($db,$_GET['id']));
 
             mysqli_query($db,$sql) or die(mysqli_error($db));
 
             //これすることによって再読込ボタンを押したことによる、二重投稿を防止している。
-            header('Location:beach.php');
+            header('Location:restrant.php');
             exit();
     
 }
@@ -146,6 +153,7 @@ $sql = 'SELECT * FROM posts WHERE del_flg=0';
             <option value="<?php $datas['id'];?>"><?php echo $datas['category_name'];?></div></option>
             <?php endwhile;?>
 </select>
+ <div><br><input type="file" name="image" size="35" /><br></div>
 <p>
 <input type="text" name="title" size="50" value="<?php print $row['title']; ?>" />
 </p>

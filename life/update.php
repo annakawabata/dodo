@@ -22,14 +22,20 @@ if(isset($_GET['id'])){
     $result = mysqli_query($db, $sqls) or die(mysqli_error($db));
     $table = mysqli_fetch_array($result);
 }
+        if(isset($_POST['title'])){
+        //画像を送る際に一度$_FILESに入れる必要がある
+        $image = date('YmdHis').$_FILES['image']['name'];
+        move_uploaded_file($_FILES['image']['tmp_name'],'../images/'.$image);
+    }
 
 //更新している
 if(!empty($_POST)){
     //print_r($_POST);exit;
     if($_GET['id'] > 0){//POSTのidが空でないかどうかを確認する
-        $sql = sprintf('UPDATE posts SET title="%s",body="%s",modified=NOW() WHERE id=%d',
+        $sql = sprintf('UPDATE posts SET title="%s",body="%s",image="%s",modified=NOW() WHERE id=%d',
             mysqli_real_escape_string($db,$_POST['title']),
             mysqli_real_escape_string($db,$_POST['body']),
+            mysqli_real_escape_string($db,$_POST['image']),
             mysqli_real_escape_string($db,$_GET['id']));
 
             mysqli_query($db,$sql) or die(mysqli_error($db));
@@ -146,6 +152,7 @@ $sql = 'SELECT * FROM posts WHERE del_flg=0';
             <option value="<?php $datas['id'];?>"><?php echo $datas['category_name'];?></div></option>
             <?php endwhile;?>
 </select>
+ <div><br><input type="file" name="image" size="35" /><br></div>
 <p>
  <input type="text" name="title" size="50" value="<?php print $row['title']; ?>" />
 </p>
